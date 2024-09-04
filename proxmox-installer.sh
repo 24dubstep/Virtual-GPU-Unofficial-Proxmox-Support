@@ -172,8 +172,8 @@ configure_fastapi_dls() {
 
         # Ask for desired port number here
         echo ""
-        read -p "$(echo -e "${BLUE}[?]${NC} Enter the desired port number for FastAPI-DLS (default is 8443): ")" portnumber
-        portnumber=${portnumber:-8443}
+        read -p "$(echo -e "${BLUE}[?]${NC} Enter the desired port number for FastAPI-DLS (default is 443): ")" portnumber
+        portnumber=${portnumber:-443}
         echo -e "${RED}[!]${NC} Don't use port 80 or 443 since Proxmox is using those ports"
         echo ""
 
