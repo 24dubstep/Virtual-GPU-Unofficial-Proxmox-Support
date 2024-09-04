@@ -165,7 +165,7 @@ configure_fastapi_dls() {
         timezone=$(timedatectl | grep 'Time zone' | awk '{print $3}')
 
         # Get the hostname of the Proxmox server
-        hostname=$(hostname -i)
+        hostname=0.0.0.0
 
         fastapi_dir=~/fastapi-dls
         mkdir -p $fastapi_dir
