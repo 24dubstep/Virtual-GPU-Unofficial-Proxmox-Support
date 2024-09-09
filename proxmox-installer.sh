@@ -164,8 +164,12 @@ configure_fastapi_dls() {
         # Get the timezone of the Proxmox server
         timezone=$(timedatectl | grep 'Time zone' | awk '{print $3}')
 
-        # Get the hostname of the Proxmox server
-        hostname=0.0.0.0
+        # ask the hostname of the Proxmox server
+        echo ""
+        read -p "$(echo -e "${BLUE}[?]${NC} Enter the desired ip adress for FastAPI-DLS (default is hostname command): ")" hostname
+        hostname=${hostname}
+        echo -e "${RED}[!]${NC} Don't use 0.0.0.0 since it will make the client connecto to it"
+        echo ""
 
         fastapi_dir=~/fastapi-dls
         mkdir -p $fastapi_dir
