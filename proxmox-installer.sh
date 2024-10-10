@@ -166,7 +166,7 @@ configure_fastapi_dls() {
 
         # ask the hostname of the Proxmox server
         echo ""
-        read -p "$(echo -e "${BLUE}[?]${NC} Enter the desired ip adress for FastAPI-DLS (default is hostname command): ")" hostname
+        read -p "$(echo -e "${BLUE}[?]${NC} Enter the desired ip adress for FastAPI-DLS: ")" hostname
         hostname=${hostname}
         echo -e "${RED}[!]${NC} Don't use 0.0.0.0 since it will make the client connecto to it"
         echo ""
