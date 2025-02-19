@@ -271,10 +271,11 @@ echo -e "${YELLOW} _   __${GREEN}/ ____/ __ \/ / / /  /  _/___  _____/ /_____ _/
 echo -e "${YELLOW}| | / /${GREEN} / __/ /_/ / / / /   / // __ \/ ___/ __/ __ ' / / / _\/ ___/ "
 echo -e "${YELLOW}| |/ /${GREEN} /_/ / ____/ /_/ /  _/ // / / (__  ) /_/ /_/ / / /  __/ /     "
 echo -e "${YELLOW}|___/${GREEN}\____/_/    \____/  /___/_/ /_/____/\__/\__,_/_/_/\___/_/      ${NC}"
-echo -e "${BLUE}by wvthoog.nl${NC}"
+echo -e "${BLUE}by wvthoog.nl edited by ${RED}24dubstep.pl${NC}"
 echo -e ""
 echo -e "Welcome to the Nvidia vGPU installer version $SCRIPT_VERSION for Proxmox"
 echo -e "This system is running Proxmox version ${version} with kernel ${kernel}"
+echo -e "This script is modified for All unsupported GPU in script and GM107"
 echo ""
 
 # Main installation process
@@ -1167,7 +1168,7 @@ case $STEP in
             run_command "Patching driver" "info" "./$driver_filename --apply-patch $VGPU_DIR/vgpu-proxmox/$driver_patch"
             # Run the patched driver installer
             run_command "Installing patched driver" "info" "./$custom_filename --dkms -m=kernel -s"
-        elif [ "$VGPU_SUPPORT" = "Native" ] || [ "$VGPU_SUPPORT" = "No" ] || [ "$VGPU_SUPPORT" = "Unknown" ]; then
+        elif [ "$VGPU_SUPPORT" = "Native" ] || [ "$VGPU_SUPPORT" = "No" ] || [ "$VGPU_SUPPORT" = "Yes" ] || [ "$VGPU_SUPPORT" = "Unknown" ]; then
             # Run the regular driver installer
             run_command "Installing native driver" "info" "./$driver_filename --dkms -m=kernel -s"
         else
