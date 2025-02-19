@@ -164,20 +164,16 @@ configure_fastapi_dls() {
         # Get the timezone of the Proxmox server
         timezone=$(timedatectl | grep 'Time zone' | awk '{print $3}')
 
-        # ask the hostname of the Proxmox server
-        echo ""
-        read -p "$(echo -e "${BLUE}[?]${NC} Enter the desired ip adress for FastAPI-DLS: ")" hostname
-        hostname=${hostname}
-        echo -e "${RED}[!]${NC} Don't use 0.0.0.0 since it will make the client connecto to it"
-        echo ""
+        # Get the hostname of the Proxmox server
+        hostname=$(hostname -i)
 
         fastapi_dir=~/fastapi-dls
         mkdir -p $fastapi_dir
 
         # Ask for desired port number here
         echo ""
-        read -p "$(echo -e "${BLUE}[?]${NC} Enter the desired port number for FastAPI-DLS (default is 443): ")" portnumber
-        portnumber=${portnumber:-443}
+        read -p "$(echo -e "${BLUE}[?]${NC} Enter the desired port number for FastAPI-DLS (default is 8443): ")" portnumber
+        portnumber=${portnumber:-8443}
         echo -e "${RED}[!]${NC} Don't use port 80 or 443 since Proxmox is using those ports"
         echo ""
 
@@ -455,7 +451,7 @@ case $STEP in
 
                     if [[ "$vgpu" == "No" ]]; then
                         echo "$description is not vGPU capable"
-                        VGPU_SUPPORT="No"
+                        VGPU_SUPPORT="Yes"
                     elif [[ "$vgpu" == "Yes" ]]; then
                         echo "$description is vGPU capable through vgpu_unlock with driver version $driver"
                         VGPU_SUPPORT="Yes"
@@ -518,7 +514,7 @@ case $STEP in
                             No)
                                 if [[ "$VGPU_SUPPORT" == "Unknown" ]]; then
                                     gpu_info="is not vGPU capable"
-                                    VGPU_SUPPORT="No"
+                                    VGPU_SUPPORT="NO"
                                 fi
                                 ;;
                             Yes)
@@ -1171,7 +1167,7 @@ case $STEP in
             run_command "Patching driver" "info" "./$driver_filename --apply-patch $VGPU_DIR/vgpu-proxmox/$driver_patch"
             # Run the patched driver installer
             run_command "Installing patched driver" "info" "./$custom_filename --dkms -m=kernel -s"
-        elif [ "$VGPU_SUPPORT" = "Native" ] || [ "$VGPU_SUPPORT" = "Native" ] || [ "$VGPU_SUPPORT" = "Unknown" ]; then
+        elif [ "$VGPU_SUPPORT" = "Native" ] || [ "$VGPU_SUPPORT" = "No" ] || [ "$VGPU_SUPPORT" = "Unknown" ]; then
             # Run the regular driver installer
             run_command "Installing native driver" "info" "./$driver_filename --dkms -m=kernel -s"
         else
