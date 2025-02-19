@@ -16,3 +16,6 @@ Changes in version 1.1
 - Always write config.txt to script directory
 - Use Docker for hosting FastAPI-DLS (licensing)
 - Create Powershell (ps1) and Bash (sh) files to retrieve licenses from FastAPI-DLS
+
+
+DISCLAIMER: AFTER INSTALL COPY DOWNLOADED FILE .run TO VM or LXC (pct push)
